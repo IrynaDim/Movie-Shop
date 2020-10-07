@@ -66,12 +66,7 @@ public class Main {
         iryna.setPassword("156");
         UserService userService = (UserService) injector.getInstance(UserService.class);
         userService.add(iryna);
-        userService.findByEmail("fff");
-
-        User iryna2 = new User();
-        iryna.setEmail("fff");
-        iryna.setPassword("1567");
-        userService.add(iryna);
+        System.out.println(userService.findByEmail("fff"));
 
         AuthenticationService authenticationService = (AuthenticationService) injector
                 .getInstance(AuthenticationService.class);

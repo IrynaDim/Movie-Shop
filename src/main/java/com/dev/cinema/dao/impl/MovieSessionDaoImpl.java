@@ -24,7 +24,8 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             query.setParameter("end", date.atTime(LocalTime.MAX));
             return query.getResultList();
         } catch (Exception e) {
-            throw new DataProcessingException("Can't get movie sessions", e);
+            throw new DataProcessingException(
+                    "Cant get movie sessions by movie id: " + movieId + " and date: " + date, e);
         }
     }
 
@@ -42,7 +43,9 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Can't insert movie session", e);
+            throw new DataProcessingException(
+                    "Cant add movie session with movie" + movieSession.getMovie()
+                            + " to the database", e);
         } finally {
             if (session != null) {
                 session.close();

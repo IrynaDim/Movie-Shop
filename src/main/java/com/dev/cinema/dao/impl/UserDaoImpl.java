@@ -6,9 +6,9 @@ import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.User;
 import com.dev.cinema.util.HibernateUtil;
 import java.util.Optional;
-import javax.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 @Dao
 public class UserDaoImpl implements UserDao {
@@ -39,11 +39,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Optional<User> findByEmail(String email) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("from User u where "
-                    + "u.email = :email");
+            Query<User> query = session.createQuery("from User u where "
+                    + "u.email = :email", User.class);
             query.setParameter("email", email);
-            User user = (User) Optional.of(query.getSingleResult()).get();
-            return Optional.ofNullable(user);
+            return Optional.ofNullable(query.getSingleResult());
         } catch (Exception e) {
             throw new DataProcessingException(
                     "Cant get user with email: " + email, e);

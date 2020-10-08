@@ -10,12 +10,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true,name = "email")
+    @Column(unique = true, name = "email")
     @NotNull
     private String email;
     @NotNull

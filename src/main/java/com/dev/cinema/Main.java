@@ -1,12 +1,16 @@
 package com.dev.cinema;
 
+import com.dev.cinema.exception.AuthenticationException;
 import com.dev.cinema.lib.Injector;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.model.MovieSession;
+import com.dev.cinema.model.User;
+import com.dev.cinema.security.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
+import com.dev.cinema.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -14,7 +18,7 @@ import java.time.LocalTime;
 public class Main {
     private static Injector injector = Injector.getInstance("com.dev.cinema");
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AuthenticationException {
         Movie movie = new Movie();
         movie.setTitle("Fast and Furious");
         movie.setDescription("movie about street racing");
@@ -56,5 +60,18 @@ public class Main {
         movieSessionService.add(movieSessionSecond);
         System.out.println(movieSessionService
                 .findAvailableSessions(movieSecond.getId(), LocalDate.of(2020, 10, 07)));
+
+        User iryna = new User();
+        iryna.setEmail("fff");
+        iryna.setPassword("156");
+        UserService userService = (UserService) injector.getInstance(UserService.class);
+        userService.add(iryna);
+        System.out.println(userService.findByEmail("fff"));
+
+        AuthenticationService authenticationService = (AuthenticationService) injector
+                .getInstance(AuthenticationService.class);
+        authenticationService.register("newMail", "1254");
+        System.out.println(authenticationService.login("newMail", "1254"));
+        System.out.println(authenticationService.login("newMail", "12544"));
     }
 }

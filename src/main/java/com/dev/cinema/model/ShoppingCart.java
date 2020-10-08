@@ -16,13 +16,13 @@ import javax.persistence.Table;
 public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     @OneToMany
-    List<Ticket> tickets;
+    private List<Ticket> tickets;
     @OneToOne
     @MapsId
     @JoinColumn(name = "shopping_cart_id")
-    User user;
+    private User user;
 
     public Long getId() {
         return id;

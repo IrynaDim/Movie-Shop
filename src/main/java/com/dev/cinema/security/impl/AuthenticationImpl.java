@@ -7,6 +7,7 @@ import com.dev.cinema.lib.Inject;
 import com.dev.cinema.lib.Service;
 import com.dev.cinema.model.User;
 import com.dev.cinema.security.AuthenticationService;
+import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
 import java.util.Optional;
 
@@ -14,6 +15,9 @@ import java.util.Optional;
 public class AuthenticationImpl implements AuthenticationService {
     @Inject
     private UserService userService;
+
+    @Inject
+    private ShoppingCartService shoppingCartService;
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
@@ -31,6 +35,7 @@ public class AuthenticationImpl implements AuthenticationService {
         user.setEmail(email);
         user.setPassword(password);
         userService.add(user);
+        shoppingCartService.registerNewShoppingCart(user);
         return user;
     }
 }

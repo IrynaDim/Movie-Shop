@@ -10,6 +10,7 @@ import com.dev.cinema.security.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
+import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -61,17 +62,23 @@ public class Main {
         System.out.println(movieSessionService
                 .findAvailableSessions(movieSecond.getId(), LocalDate.of(2020, 10, 07)));
 
+        AuthenticationService authenticationService = (AuthenticationService) injector
+                .getInstance(AuthenticationService.class);
+        authenticationService.register("newMail", "1254");
+        System.out.println(authenticationService.login("newMail", "1254"));
+
         User iryna = new User();
         iryna.setEmail("fff");
         iryna.setPassword("156");
         UserService userService = (UserService) injector.getInstance(UserService.class);
         userService.add(iryna);
-        System.out.println(userService.findByEmail("fff"));
-
-        AuthenticationService authenticationService = (AuthenticationService) injector
-                .getInstance(AuthenticationService.class);
-        authenticationService.register("newMail", "1254");
-        System.out.println(authenticationService.login("newMail", "1254"));
-        System.out.println(authenticationService.login("newMail", "12544"));
+        ShoppingCartService shoppingCartService = (ShoppingCartService) injector
+                .getInstance(ShoppingCartService.class);
+        shoppingCartService.registerNewShoppingCart(iryna);
+        shoppingCartService.addSession(movieSession, iryna);
+        shoppingCartService.addSession(movieSessionSecond, iryna);
+        System.out.println(shoppingCartService.getByUser(iryna).getTickets());
+        shoppingCartService.clear(shoppingCartService.getByUser(iryna));
+        System.out.println(shoppingCartService.getByUser(iryna).getTickets());
     }
 }

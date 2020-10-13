@@ -77,5 +77,6 @@ public class Main {
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
         orderService.completeOrder(shoppingCartService.getByUser(iryna).getTickets(), iryna);
         System.out.println(shoppingCartService.getByUser(iryna));
+        System.out.println(orderService.getOrderHistory(iryna));
     }
 }

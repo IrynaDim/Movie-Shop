@@ -10,6 +10,7 @@ import com.dev.cinema.security.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
+import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
 import java.time.LocalDate;
@@ -37,7 +38,6 @@ public class Main {
         cinemaHall.setCapacity(100);
         cinemaHall.setDescription("the biggest cinema hall");
         cinemaHallService.add(cinemaHall);
-        System.out.println(cinemaHallService.getAll());
         CinemaHall cinemaHallSecond = new CinemaHall();
         cinemaHallSecond.setCapacity(50);
         cinemaHallSecond.setDescription("the smallest cinema hall");
@@ -50,8 +50,6 @@ public class Main {
         MovieSessionService movieSessionService = (MovieSessionService) injector
                 .getInstance(MovieSessionService.class);
         movieSessionService.add(movieSession);
-        System.out.println(movieSessionService
-                .findAvailableSessions(movie.getId(), LocalDate.now()));
 
         MovieSession movieSessionSecond = new MovieSession();
         movieSessionSecond.setCinemaHall(cinemaHallSecond);
@@ -59,13 +57,11 @@ public class Main {
         movieSessionSecond.setShowTime(LocalDateTime.of(LocalDate.of(2020, 10, 07),
                 LocalTime.of(20, 00)));
         movieSessionService.add(movieSessionSecond);
-        System.out.println(movieSessionService
-                .findAvailableSessions(movieSecond.getId(), LocalDate.of(2020, 10, 07)));
 
         AuthenticationService authenticationService = (AuthenticationService) injector
                 .getInstance(AuthenticationService.class);
         authenticationService.register("newMail", "1254");
-        System.out.println(authenticationService.login("newMail", "1254"));
+        authenticationService.login("newMail", "1254");
 
         User iryna = new User();
         iryna.setEmail("fff");
@@ -77,8 +73,10 @@ public class Main {
         shoppingCartService.registerNewShoppingCart(iryna);
         shoppingCartService.addSession(movieSession, iryna);
         shoppingCartService.addSession(movieSessionSecond, iryna);
-        System.out.println(shoppingCartService.getByUser(iryna).getTickets());
-        shoppingCartService.clear(shoppingCartService.getByUser(iryna));
-        System.out.println(shoppingCartService.getByUser(iryna).getTickets());
+
+        OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
+        orderService.completeOrder(shoppingCartService.getByUser(iryna).getTickets(), iryna);
+        System.out.println(shoppingCartService.getByUser(iryna));
+        System.out.println(orderService.getOrderHistory(iryna));
     }
 }

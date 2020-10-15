@@ -5,11 +5,14 @@ import com.dev.cinema.exception.DataProcessingException;
 import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.Ticket;
 import com.dev.cinema.util.HibernateUtil;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 @Dao
 public class TicketDaoImpl implements TicketDao {
+    private static Logger logger = Logger.getLogger(TicketDao.class.getName());
+
     @Override
     public Ticket add(Ticket ticket) {
         Transaction transaction = null;
@@ -19,6 +22,7 @@ public class TicketDaoImpl implements TicketDao {
             transaction = session.beginTransaction();
             session.persist(ticket);
             transaction.commit();
+            logger.info("Ticket was created" + ticket);
             return ticket;
         } catch (Exception e) {
             if (transaction != null) {

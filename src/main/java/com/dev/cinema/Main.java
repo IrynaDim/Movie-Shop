@@ -16,9 +16,11 @@ import com.dev.cinema.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.logging.Logger;
 
 public class Main {
     private static Injector injector = Injector.getInstance("com.dev.cinema");
+    private static Logger logger = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) throws AuthenticationException {
         Movie movie = new Movie();
@@ -76,7 +78,7 @@ public class Main {
 
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
         orderService.completeOrder(shoppingCartService.getByUser(iryna).getTickets(), iryna);
-        System.out.println(shoppingCartService.getByUser(iryna));
-        System.out.println(orderService.getOrderHistory(iryna));
+        logger.info("Get order by user id: " + shoppingCartService.getByUser(iryna));
+        logger.info("Get order by user id: " + orderService.getOrderHistory(iryna));
     }
 }

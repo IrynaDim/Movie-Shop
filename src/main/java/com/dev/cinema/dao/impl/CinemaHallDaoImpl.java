@@ -6,12 +6,15 @@ import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.util.HibernateUtil;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 @Dao
 public class CinemaHallDaoImpl implements CinemaHallDao {
+    private static Logger logger = Logger.getLogger(CinemaHallDao.class.getName());
+
     @Override
     public CinemaHall add(CinemaHall cinemaHall) {
         Transaction transaction = null;
@@ -21,6 +24,7 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
             transaction = session.beginTransaction();
             session.persist(cinemaHall);
             transaction.commit();
+            logger.info("Cinema hall was created: " + cinemaHall);
             return cinemaHall;
         } catch (Exception e) {
             if (transaction != null) {

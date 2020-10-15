@@ -6,12 +6,15 @@ import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.User;
 import com.dev.cinema.util.HibernateUtil;
 import java.util.Optional;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 @Dao
 public class UserDaoImpl implements UserDao {
+    private static Logger logger = Logger.getLogger(UserDao.class.getName());
+
     @Override
     public User add(User user) {
         Transaction transaction = null;
@@ -21,6 +24,7 @@ public class UserDaoImpl implements UserDao {
             transaction = session.beginTransaction();
             session.persist(user);
             transaction.commit();
+            logger.info("User was created" + user);
             return user;
         } catch (Exception e) {
             if (transaction != null) {

@@ -8,12 +8,16 @@ import com.dev.cinema.util.HibernateUtil;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 @Dao
 public class MovieSessionDaoImpl implements MovieSessionDao {
+
+    private static Logger logger = Logger.getLogger(MovieSessionDao.class.getName());
+
     @Override
     public List<MovieSession> findAvailableSessions(Long movieId, LocalDate date) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -38,6 +42,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             transaction = session.beginTransaction();
             session.persist(movieSession);
             transaction.commit();
+            logger.info("Movie session was created" + movieSession);
             return movieSession;
         } catch (Exception e) {
             if (transaction != null) {

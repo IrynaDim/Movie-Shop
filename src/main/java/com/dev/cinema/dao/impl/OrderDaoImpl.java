@@ -7,6 +7,7 @@ import com.dev.cinema.model.Order;
 import com.dev.cinema.model.User;
 import com.dev.cinema.util.HibernateUtil;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
@@ -17,6 +18,8 @@ import org.hibernate.Transaction;
 
 @Dao
 public class OrderDaoImpl implements OrderDao {
+    private static Logger logger = Logger.getLogger(OrderDao.class.getName());
+
     @Override
     public Order create(Order order) {
         Transaction transaction = null;
@@ -26,6 +29,7 @@ public class OrderDaoImpl implements OrderDao {
             transaction = session.beginTransaction();
             session.save(order);
             transaction.commit();
+            logger.info("Order was created" + order);
             return order;
         } catch (Exception e) {
             if (transaction != null) {

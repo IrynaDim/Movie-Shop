@@ -12,11 +12,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 @Dao
 public class OrderDaoImpl implements OrderDao {
+    private static final Logger logger = Logger.getLogger(OrderDaoImpl.class);
+
     @Override
     public Order create(Order order) {
         Transaction transaction = null;
@@ -26,6 +29,7 @@ public class OrderDaoImpl implements OrderDao {
             transaction = session.beginTransaction();
             session.save(order);
             transaction.commit();
+            logger.info("Order was created" + order);
             return order;
         } catch (Exception e) {
             if (transaction != null) {

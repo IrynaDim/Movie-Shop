@@ -16,11 +16,13 @@ import com.dev.cinema.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import org.apache.log4j.Logger;
 
 public class Main {
-    private static Injector injector = Injector.getInstance("com.dev.cinema");
+    private static final Injector injector = Injector.getInstance("com.dev.cinema");
+    private static final Logger logger = Logger.getLogger(Main.class);
 
-    public static void main(String[] args) throws AuthenticationException {
+    public static void main(String[] args) {
         Movie movie = new Movie();
         movie.setTitle("Fast and Furious");
         movie.setDescription("movie about street racing");
@@ -61,8 +63,16 @@ public class Main {
         AuthenticationService authenticationService = (AuthenticationService) injector
                 .getInstance(AuthenticationService.class);
         authenticationService.register("newMail", "1254");
-        authenticationService.login("newMail", "1254");
-
+        try {
+            authenticationService.login("newMail", "1254");
+        } catch (AuthenticationException e) {
+            logger.warn("Log-in was failed. " + e);
+        }
+        try {
+            authenticationService.register("newMail", "1234");
+        } catch (Exception e) {
+            logger.info("Exception is expected: " + e);
+        }
         User iryna = new User();
         iryna.setEmail("fff");
         iryna.setPassword("156");
@@ -73,10 +83,11 @@ public class Main {
         shoppingCartService.registerNewShoppingCart(iryna);
         shoppingCartService.addSession(movieSession, iryna);
         shoppingCartService.addSession(movieSessionSecond, iryna);
-
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
         orderService.completeOrder(shoppingCartService.getByUser(iryna).getTickets(), iryna);
-        System.out.println(shoppingCartService.getByUser(iryna));
-        System.out.println(orderService.getOrderHistory(iryna));
+        logger.info("Getting shopping cart by user id: " + iryna.getId()
+                + shoppingCartService.getByUser(iryna));
+        logger.info("Getting all orders by user id: " + iryna.getId()
+                + orderService.getOrderHistory(iryna));
     }
 }

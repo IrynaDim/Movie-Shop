@@ -7,18 +7,18 @@ import com.dev.cinema.model.Order;
 import com.dev.cinema.model.User;
 import com.dev.cinema.util.HibernateUtil;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 @Dao
 public class OrderDaoImpl implements OrderDao {
-    private static Logger logger = Logger.getLogger(OrderDao.class.getName());
+    private static final Logger logger = Logger.getLogger(OrderDao.class);
 
     @Override
     public Order create(Order order) {

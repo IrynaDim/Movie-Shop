@@ -8,15 +8,15 @@ import com.dev.cinema.util.HibernateUtil;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.persistence.Query;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 @Dao
 public class MovieSessionDaoImpl implements MovieSessionDao {
 
-    private static Logger logger = Logger.getLogger(MovieSessionDao.class.getName());
+    private static final Logger logger = Logger.getLogger(MovieSessionDao.class);
 
     @Override
     public List<MovieSession> findAvailableSessions(Long movieId, LocalDate date) {

@@ -6,14 +6,14 @@ import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.util.HibernateUtil;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.persistence.criteria.CriteriaQuery;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 @Dao
 public class CinemaHallDaoImpl implements CinemaHallDao {
-    private static Logger logger = Logger.getLogger(CinemaHallDao.class.getName());
+    private static final Logger logger = Logger.getLogger(CinemaHallDao.class);
 
     @Override
     public CinemaHall add(CinemaHall cinemaHall) {

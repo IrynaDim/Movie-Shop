@@ -6,14 +6,14 @@ import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.util.HibernateUtil;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.persistence.criteria.CriteriaQuery;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 @Dao
 public class MovieDaoImpl implements MovieDao {
-    private static Logger logger = Logger.getLogger(MovieDao.class.getName());
+    private static final Logger logger = Logger.getLogger(MovieDao.class);
 
     @Override
     public Movie add(Movie movie) {

@@ -5,13 +5,13 @@ import com.dev.cinema.exception.DataProcessingException;
 import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.Ticket;
 import com.dev.cinema.util.HibernateUtil;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 @Dao
 public class TicketDaoImpl implements TicketDao {
-    private static Logger logger = Logger.getLogger(TicketDao.class.getName());
+    private static final Logger logger = Logger.getLogger(TicketDao.class);
 
     @Override
     public Ticket add(Ticket ticket) {

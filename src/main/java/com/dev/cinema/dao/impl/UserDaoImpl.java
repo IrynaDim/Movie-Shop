@@ -6,14 +6,14 @@ import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.User;
 import com.dev.cinema.util.HibernateUtil;
 import java.util.Optional;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 @Dao
 public class UserDaoImpl implements UserDao {
-    private static Logger logger = Logger.getLogger(UserDao.class.getName());
+    private static final Logger logger = Logger.getLogger(UserDao.class);
 
     @Override
     public User add(User user) {

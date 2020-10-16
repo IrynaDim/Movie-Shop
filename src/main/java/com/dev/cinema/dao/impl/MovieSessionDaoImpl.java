@@ -16,7 +16,7 @@ import org.hibernate.Transaction;
 @Dao
 public class MovieSessionDaoImpl implements MovieSessionDao {
 
-    private static final Logger logger = Logger.getLogger(MovieSessionDao.class);
+    private static final Logger logger = Logger.getLogger(MovieSessionDaoImpl.class);
 
     @Override
     public List<MovieSession> findAvailableSessions(Long movieId, LocalDate date) {

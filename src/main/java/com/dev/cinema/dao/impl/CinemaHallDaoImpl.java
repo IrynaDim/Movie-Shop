@@ -13,7 +13,7 @@ import org.hibernate.Transaction;
 
 @Dao
 public class CinemaHallDaoImpl implements CinemaHallDao {
-    private static final Logger logger = Logger.getLogger(CinemaHallDao.class);
+    private static final Logger logger = Logger.getLogger(CinemaHallDaoImpl.class);
 
     @Override
     public CinemaHall add(CinemaHall cinemaHall) {

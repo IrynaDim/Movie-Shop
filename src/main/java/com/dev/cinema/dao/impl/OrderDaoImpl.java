@@ -18,7 +18,7 @@ import org.hibernate.Transaction;
 
 @Dao
 public class OrderDaoImpl implements OrderDao {
-    private static final Logger logger = Logger.getLogger(OrderDao.class);
+    private static final Logger logger = Logger.getLogger(OrderDaoImpl.class);
 
     @Override
     public Order create(Order order) {

@@ -19,8 +19,8 @@ import java.time.LocalTime;
 import org.apache.log4j.Logger;
 
 public class Main {
-    private static Injector injector = Injector.getInstance("com.dev.cinema");
-    private static Logger logger = Logger.getLogger(Main.class);
+    private static final Injector injector = Injector.getInstance("com.dev.cinema");
+    private static final Logger logger = Logger.getLogger(Main.class);
 
     public static void main(String[] args) {
         Movie movie = new Movie();
@@ -85,7 +85,9 @@ public class Main {
         shoppingCartService.addSession(movieSessionSecond, iryna);
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
         orderService.completeOrder(shoppingCartService.getByUser(iryna).getTickets(), iryna);
-        logger.info("Get order by user id: " + shoppingCartService.getByUser(iryna));
-        logger.info("Get order by user id: " + orderService.getOrderHistory(iryna));
+        logger.info("Getting shopping cart by user id: " + iryna.getId()
+                + shoppingCartService.getByUser(iryna));
+        logger.info("Getting all orders by user id: " + iryna.getId()
+                + orderService.getOrderHistory(iryna));
     }
 }

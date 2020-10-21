@@ -1,7 +1,7 @@
 package com.dev.cinema;
 
+import com.dev.cinema.config.AppConfig;
 import com.dev.cinema.exception.AuthenticationException;
-import com.dev.cinema.lib.Injector;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.model.MovieSession;
@@ -17,16 +17,19 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
-    private static final Injector injector = Injector.getInstance("com.dev.cinema");
     private static final Logger logger = Logger.getLogger(Main.class);
+    private static final AnnotationConfigApplicationContext context =
+            new AnnotationConfigApplicationContext(AppConfig.class);
 
     public static void main(String[] args) {
+
         Movie movie = new Movie();
         movie.setTitle("Fast and Furious");
         movie.setDescription("movie about street racing");
-        MovieService movieService = (MovieService) injector.getInstance(MovieService.class);
+        MovieService movieService = context.getBean(MovieService.class);
         movieService.add(movie);
 
         Movie movieSecond = new Movie();
@@ -34,8 +37,7 @@ public class Main {
         movieSecond.setDescription("movie about street racing. second part");
         movieService.add(movieSecond);
 
-        CinemaHallService cinemaHallService = (CinemaHallService) injector
-                .getInstance(CinemaHallService.class);
+        CinemaHallService cinemaHallService = context.getBean(CinemaHallService.class);
         CinemaHall cinemaHall = new CinemaHall();
         cinemaHall.setCapacity(100);
         cinemaHall.setDescription("the biggest cinema hall");
@@ -49,8 +51,7 @@ public class Main {
         movieSession.setCinemaHall(cinemaHall);
         movieSession.setMovie(movie);
         movieSession.setShowTime(LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 00)));
-        MovieSessionService movieSessionService = (MovieSessionService) injector
-                .getInstance(MovieSessionService.class);
+        MovieSessionService movieSessionService = context.getBean(MovieSessionService.class);
         movieSessionService.add(movieSession);
 
         MovieSession movieSessionSecond = new MovieSession();
@@ -60,8 +61,7 @@ public class Main {
                 LocalTime.of(20, 00)));
         movieSessionService.add(movieSessionSecond);
 
-        AuthenticationService authenticationService = (AuthenticationService) injector
-                .getInstance(AuthenticationService.class);
+        AuthenticationService authenticationService = context.getBean(AuthenticationService.class);
         authenticationService.register("newMail", "1254");
         try {
             authenticationService.login("newMail", "1254");
@@ -76,14 +76,14 @@ public class Main {
         User iryna = new User();
         iryna.setEmail("fff");
         iryna.setPassword("156");
-        UserService userService = (UserService) injector.getInstance(UserService.class);
+        UserService userService = context.getBean(UserService.class);
         userService.add(iryna);
-        ShoppingCartService shoppingCartService = (ShoppingCartService) injector
-                .getInstance(ShoppingCartService.class);
+
+        ShoppingCartService shoppingCartService = context.getBean(ShoppingCartService.class);
         shoppingCartService.registerNewShoppingCart(iryna);
         shoppingCartService.addSession(movieSession, iryna);
         shoppingCartService.addSession(movieSessionSecond, iryna);
-        OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
+        OrderService orderService = context.getBean(OrderService.class);
         orderService.completeOrder(shoppingCartService.getByUser(iryna).getTickets(), iryna);
         logger.info("Getting shopping cart by user id: " + iryna.getId()
                 + shoppingCartService.getByUser(iryna));

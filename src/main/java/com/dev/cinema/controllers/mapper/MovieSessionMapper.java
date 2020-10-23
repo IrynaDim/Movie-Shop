@@ -1,4 +1,4 @@
-package com.dev.cinema.controllers.map;
+package com.dev.cinema.controllers.mapper;
 
 import com.dev.cinema.model.MovieSession;
 import com.dev.cinema.model.dto.MovieSessionRequestDto;
@@ -25,17 +25,16 @@ public class MovieSessionMapper {
         sessionResponseDto.setCinemaHallId(movieSession.getCinemaHall().getId());
         sessionResponseDto.setMovieTitle(movieSession.getMovie().getTitle());
         sessionResponseDto.setShowTime(movieSession.getShowTime().toString());
+        sessionResponseDto.setMovieId(movieSession.getMovie().getId());
         return sessionResponseDto;
     }
 
     public MovieSession convertToEntity(MovieSessionRequestDto requestDto) {
         MovieSession movieSession = new MovieSession();
-        movieSession.setMovie(movieService.findByTitle(requestDto.getMovieTitle()));
+        movieSession.setMovie(movieService.findById(requestDto.getMovieId()));
         movieSession.setCinemaHall(cinemaHallService.getById(requestDto.getCinemaHallId()));
-
         movieSession.setShowTime(LocalDateTime.parse(requestDto.getShowTime(),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-
+                DateTimeFormatter.ISO_DATE_TIME));
         return movieSession;
     }
 }

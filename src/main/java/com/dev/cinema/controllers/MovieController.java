@@ -1,6 +1,6 @@
 package com.dev.cinema.controllers;
 
-import com.dev.cinema.controllers.map.MovieMapper;
+import com.dev.cinema.controllers.mapper.MovieMapper;
 import com.dev.cinema.model.dto.MovieRequestDto;
 import com.dev.cinema.model.dto.MovieResponseDto;
 import com.dev.cinema.service.MovieService;
@@ -23,7 +23,7 @@ public class MovieController {
         this.movieMapper = movieMapper;
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public void create(@RequestBody MovieRequestDto movieDto) {
         movieService.add(movieMapper.convertToEntity(movieDto));
     }

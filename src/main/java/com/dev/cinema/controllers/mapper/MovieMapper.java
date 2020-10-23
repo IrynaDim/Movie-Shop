@@ -1,4 +1,4 @@
-package com.dev.cinema.controllers.map;
+package com.dev.cinema.controllers.mapper;
 
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.model.dto.MovieRequestDto;

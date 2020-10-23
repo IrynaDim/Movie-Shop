@@ -2,9 +2,17 @@ package com.dev.cinema.model.dto;
 
 public class MovieSessionRequestDto {
     private Long id;
-    private String movieTitle;
+    private Long movieId;
     private Long cinemaHallId;
     private String showTime;
+
+    public Long getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(Long movieId) {
+        this.movieId = movieId;
+    }
 
     public Long getId() {
         return id;
@@ -12,14 +20,6 @@ public class MovieSessionRequestDto {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getMovieTitle() {
-        return movieTitle;
-    }
-
-    public void setMovieTitle(String movieTitle) {
-        this.movieTitle = movieTitle;
     }
 
     public Long getCinemaHallId() {

@@ -88,6 +88,5 @@ public class Main {
                 + shoppingCartService.getByUser(iryna));
         logger.info("Getting all orders by user id: " + iryna.getId()
                 + orderService.getOrderHistory(iryna));
-
     }
 }

@@ -22,7 +22,7 @@ public class AuthenticationImpl implements AuthenticationService {
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
-        Optional<User> userFromDB = userService.findByEmail(email);
+        Optional<User> userFromDB = userService.getByEmail(email);
         if (userFromDB.isPresent() && hashPassword(password, userFromDB.get().getSalt())
                 .equals(userFromDB.get().getPassword())) {
             return userFromDB.get();

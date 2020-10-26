@@ -8,5 +8,5 @@ public interface MovieService {
 
     List<Movie> getAll();
 
-    Movie findById(Long id);
+    Movie getById(Long id);
 }

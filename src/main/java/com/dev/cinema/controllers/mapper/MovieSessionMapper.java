@@ -31,7 +31,7 @@ public class MovieSessionMapper {
 
     public MovieSession convertToEntity(MovieSessionRequestDto requestDto) {
         MovieSession movieSession = new MovieSession();
-        movieSession.setMovie(movieService.findById(requestDto.getMovieId()));
+        movieSession.setMovie(movieService.getById(requestDto.getMovieId()));
         movieSession.setCinemaHall(cinemaHallService.getById(requestDto.getCinemaHallId()));
         movieSession.setShowTime(LocalDateTime.parse(requestDto.getShowTime(),
                 DateTimeFormatter.ISO_DATE_TIME));

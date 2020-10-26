@@ -38,7 +38,7 @@ public class MovieSessionController {
                                                                        (iso = DateTimeFormat.ISO
                                                                                .DATE)
                                                                        LocalDate date) {
-        return movieSessionService.findAvailableSessions(movieId, date)
+        return movieSessionService.getAvailableSessions(movieId, date)
                 .stream().map(movieSessionMapper::convertToResponseDto)
                 .collect(Collectors.toList());
     }

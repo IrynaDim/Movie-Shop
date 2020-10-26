@@ -25,7 +25,6 @@ public class Main {
             new AnnotationConfigApplicationContext(AppConfig.class);
 
     public static void main(String[] args) {
-
         Movie movie = new Movie();
         movie.setTitle("Fast and Furious");
         movie.setDescription("movie about street racing");

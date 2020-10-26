@@ -24,7 +24,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
     }
 
     @Override
-    public List<MovieSession> findAvailableSessions(Long movieId, LocalDate date) {
+    public List<MovieSession> getAvailableSessions(Long movieId, LocalDate date) {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("from MovieSession ms where "
                     + "ms.id = :movieId and ms.showTime between :start and :end");

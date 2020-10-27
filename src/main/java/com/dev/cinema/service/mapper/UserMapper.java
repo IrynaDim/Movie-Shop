@@ -1,4 +1,4 @@
-package com.dev.cinema.controllers.mapper;
+package com.dev.cinema.service.mapper;
 
 import com.dev.cinema.model.User;
 import com.dev.cinema.model.dto.UserResponseDto;
@@ -10,7 +10,6 @@ public class UserMapper {
         UserResponseDto userResponseDto = new UserResponseDto();
         userResponseDto.setEmail(user.getEmail());
         userResponseDto.setId(user.getId());
-        userResponseDto.setPassword(user.getPassword());
         return userResponseDto;
     }
 }

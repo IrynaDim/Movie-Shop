@@ -1,4 +1,4 @@
-package com.dev.cinema.controllers.mapper;
+package com.dev.cinema.service.mapper;
 
 import com.dev.cinema.model.ShoppingCart;
 import com.dev.cinema.model.Ticket;
@@ -10,9 +10,8 @@ import org.springframework.stereotype.Component;
 public class ShoppingCartMapper {
     public ShoppingCartResponseDto convertToResponseDto(ShoppingCart order) {
         ShoppingCartResponseDto cartResponseDto = new ShoppingCartResponseDto();
-        cartResponseDto.setId(order.getId());
         cartResponseDto.setUserId(order.getUser().getId());
-        cartResponseDto.setTicketsId(order.getTickets()
+        cartResponseDto.setTicketIds(order.getTickets()
                 .stream().map(Ticket::getId)
                 .collect(Collectors.toList()));
         return cartResponseDto;

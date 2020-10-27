@@ -1,4 +1,4 @@
-package com.dev.cinema.controllers.mapper;
+package com.dev.cinema.service.mapper;
 
 import com.dev.cinema.model.Order;
 import com.dev.cinema.model.Ticket;
@@ -13,7 +13,7 @@ public class OrderMapper {
         orderResponseDto.setId(order.getId());
         orderResponseDto.setOrderDate(order.getOrderDate().toString());
         orderResponseDto.setUserId(order.getUser().getId());
-        orderResponseDto.setTicketsId(order.getTickets()
+        orderResponseDto.setTicketIds(order.getTickets()
                 .stream().map(Ticket::getId)
                 .collect(Collectors.toList()));
         return orderResponseDto;

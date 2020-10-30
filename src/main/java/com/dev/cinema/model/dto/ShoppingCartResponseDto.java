@@ -3,7 +3,6 @@ package com.dev.cinema.model.dto;
 import java.util.List;
 
 public class ShoppingCartResponseDto {
-
     private List<Long> ticketIds;
     private Long userId;
 
@@ -23,4 +22,3 @@ public class ShoppingCartResponseDto {
         this.userId = userId;
     }
 }
-

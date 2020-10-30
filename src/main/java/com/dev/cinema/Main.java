@@ -1,7 +1,6 @@
 package com.dev.cinema;
 
 import com.dev.cinema.config.AppConfig;
-import com.dev.cinema.exception.AuthenticationException;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.model.MovieSession;
@@ -62,16 +61,7 @@ public class Main {
 
         AuthenticationService authenticationService = context.getBean(AuthenticationService.class);
         authenticationService.register("newMail", "1254");
-        try {
-            authenticationService.login("newMail", "1254");
-        } catch (AuthenticationException e) {
-            logger.warn("Log-in was failed. " + e);
-        }
-        try {
-            authenticationService.register("newMail", "1234");
-        } catch (Exception e) {
-            logger.info("Exception is expected: " + e);
-        }
+
         User iryna = new User();
         iryna.setEmail("fff");
         iryna.setPassword("156");

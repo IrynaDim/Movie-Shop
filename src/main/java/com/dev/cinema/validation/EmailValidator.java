@@ -8,6 +8,6 @@ public class EmailValidator implements ConstraintValidator<Email, String> {
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext constraintValidatorContext) {
-        return email.matches(EMAIL_REGEXP);
+        return email != null && email.matches(EMAIL_REGEXP);
     }
 }

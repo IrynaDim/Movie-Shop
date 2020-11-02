@@ -8,7 +8,6 @@ import javax.validation.constraints.Size;
 @FieldsValueMatch(field = "password",
         fieldMatch = "repeatPassword")
 public class UserRegistrationDto {
-    @NotNull(message = "Email could not be null")
     @Email(message = "Incorrect email format!")
     private String email;
     @NotNull(message = "Password could not be null")

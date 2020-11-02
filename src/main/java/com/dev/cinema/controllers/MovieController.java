@@ -6,6 +6,7 @@ import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.mapper.MovieMapper;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,7 @@ public class MovieController {
     }
 
     @PostMapping
-    public void create(@RequestBody MovieRequestDto movieDto) {
+    public void create(@RequestBody @Valid MovieRequestDto movieDto) {
         movieService.add(movieMapper.convertToEntity(movieDto));
     }
 

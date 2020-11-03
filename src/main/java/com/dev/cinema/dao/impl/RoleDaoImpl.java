@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class RoleDaoImpl implements RoleDao {
-    private static final Logger logger = Logger.getLogger(ShoppingCartDaoImpl.class);
+    private static final Logger logger = Logger.getLogger(RoleDaoImpl.class);
     private final SessionFactory sessionFactory;
 
     public RoleDaoImpl(SessionFactory sessionFactory) {
@@ -34,7 +34,7 @@ public class RoleDaoImpl implements RoleDao {
                 transaction.rollback();
             }
             throw new DataProcessingException(
-                    "Cant add role with id \"" + role.getId()
+                    "Cant add role \"" + role.getRoleName()
                             + "\" to the database", e);
         } finally {
             if (session != null) {

@@ -23,7 +23,7 @@ public class InjectData {
     }
 
     @PostConstruct
-    public void injector() {
+    public void injectDefaultData() {
         Role adminRole = Role.of("ADMIN");
         Role userRole = Role.of("USER");
         roleService.add(adminRole);
@@ -32,12 +32,12 @@ public class InjectData {
         User user = new User();
         user.setRoles(Set.of(userRole));
         user.setPassword("1111");
-        user.setEmail("user1111@gmail.com");
+        user.setEmail("user@gmail.com");
 
         User admin = new User();
         admin.setRoles(Set.of(adminRole));
         admin.setPassword("0000");
-        admin.setEmail("admin1111@gmail.com");
+        admin.setEmail("admin@gmail.com");
 
         userService.add(user);
         shoppingCartService.registerNewShoppingCart(user);

@@ -49,7 +49,7 @@ public class RoleDaoImpl implements RoleDao {
             Query<Role> query = session.createQuery("from Role u where "
                     + "u.roleName = :roleName", Role.class);
             query.setParameter("roleName", roleName);
-            return query.uniqueResultOptional().get();
+            return query.uniqueResult();
         } catch (Exception e) {
             throw new DataProcessingException(
                     "Cant get role with role name: " + roleName, e);

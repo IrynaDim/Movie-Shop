@@ -1,9 +1,8 @@
 package com.dev.cinema.dao.impl;
 
-import com.dev.cinema.dao.UserDao;
+import com.dev.cinema.dao.RoleDao;
 import com.dev.cinema.exception.DataProcessingException;
-import com.dev.cinema.model.User;
-import java.util.Optional;
+import com.dev.cinema.model.Role;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,31 +11,30 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserDaoImpl implements UserDao {
-    private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
+public class RoleDaoImpl implements RoleDao {
+    private static final Logger logger = Logger.getLogger(RoleDaoImpl.class);
     private final SessionFactory sessionFactory;
 
-    public UserDaoImpl(SessionFactory sessionFactory) {
+    public RoleDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public User add(User user) {
+    public void add(Role role) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            session.save(user);
+            session.save(role);
             transaction.commit();
-            logger.info("User was created" + user);
-            return user;
+            logger.info("Role was created" + role);
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             throw new DataProcessingException(
-                    "Cant add user with email \"" + user.getEmail()
+                    "Cant add role \"" + role.getRoleName()
                             + "\" to the database", e);
         } finally {
             if (session != null) {
@@ -46,24 +44,15 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> getByEmail(String email) {
+    public Role getRoleByName(String roleName) {
         try (Session session = sessionFactory.openSession()) {
-            Query<User> query = session.createQuery("FROM User u JOIN FETCH "
-                    + "u.roles WHERE u.email = :email ", User.class);
-            query.setParameter("email", email);
-            return query.uniqueResultOptional();
+            Query<Role> query = session.createQuery("from Role u where "
+                    + "u.roleName = :roleName", Role.class);
+            query.setParameter("roleName", roleName);
+            return query.uniqueResult();
         } catch (Exception e) {
             throw new DataProcessingException(
-                    "Cant get user with email: " + email, e);
-        }
-    }
-
-    @Override
-    public User getById(Long id) {
-        try (Session session = sessionFactory.openSession()) {
-            return session.get(User.class, id);
-        } catch (Exception e) {
-            throw new DataProcessingException("Can't get user with id " + id, e);
+                    "Cant get role with role name: " + roleName, e);
         }
     }
 }
